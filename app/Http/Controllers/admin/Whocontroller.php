@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Slider;
 use Illuminate\Http\Request;
-
-
-class Slidercontroller extends Controller
+use App\Models\who;
+class Whocontroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,8 @@ class Slidercontroller extends Controller
      */
     public function index()
     {
-    $sliders = Slider::all();
-        // $avatars = $sliders->getmedia('slider');
-        return view('admin.tools.slider', compact('sliders'));
+        $whos = who::get();
+        return view('admin.who.who',compact('whos'));
     }
 
     /**
@@ -39,16 +36,7 @@ class Slidercontroller extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'img' => 'required|image|mimes:jpg,png',
-        ]);
-
-        $img = $request->file('img');
-        
-        $Slider = Slider::create(['img'=> $img]);
-        $Slider->addMedia($img)->toMediaCollection('slider');
-        session()->flash('Add','تم إضافة السليدر بنجاح');
-        return back();
+        //
     }
 
     /**
@@ -59,8 +47,7 @@ class Slidercontroller extends Controller
      */
     public function show($id)
     {
-        $slider = slider::findorfail($id);
-        return view('admin.pages.slider.show', compact('slider'));
+        //
     }
 
     /**
@@ -83,7 +70,23 @@ class Slidercontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:100',
+            'desc' => 'required|string',
+            
+        ]);
+            
+            $who = who::findorfail($id);
+            $title = $request->title;
+            $desc = $request->desc;
+        $who->update([
+            'title' => $title,
+            'desc' => $desc,
+            
+            
+        ]);
+        session()->flash('edit','تم التعديل  بنجاح');
+        return redirect(route('who.index'));
     }
 
     /**
@@ -92,12 +95,8 @@ class Slidercontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $id=$request->id;
-        $slider = slider::findOrFail($id);
-        $slider->delete();
-        session()->flash('delete','تم حذف السليدر بنجاح');
-        return back();
+        //
     }
 }

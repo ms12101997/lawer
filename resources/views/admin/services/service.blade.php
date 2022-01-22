@@ -51,25 +51,20 @@
     </div>
 @endif
 
-
-
-
-
-
-
-
-
 				<!-- row -->
 				<div class="row">
 					<div class="col-xl-12">
 						<div class="card mg-b-20">
 							<div class="card-header pb-0">
+								@can('إضافة خدمة')
 								<div class="d-flex justify-content-between col-sm-3">
 									
-										<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
-											data-toggle="modal" href="#modaldemo8">اضافة خدمة</a>
-									
-								</div>
+									<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
+										data-toggle="modal" href="#modaldemo8">اضافة خدمة</a>
+								
+							</div>
+								@endcan
+								
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
@@ -101,20 +96,24 @@
 															class="btn ripple btn-primary btn-sm" data-toggle="dropdown"
 															type="button">العمليات<i class="fas fa-caret-down ml-1"></i></button>
 														<div class="dropdown-menu tx-13">
-															
+																@can('عرض الخدمة')
 																<a class="dropdown-item"
-																	href=" {{ route('services.show',$service->id) }}"><i class="icon ion-md-eye"></i>&nbsp;&nbsp;عرض
-																	الخدمة</a>
+																href=" {{ route('services.show',$service->id) }}"><i class="icon ion-md-eye"></i>&nbsp;&nbsp;عرض
+																الخدمة</a>
+																@endcan
+																
 																	<a class="dropdown-item modal-effect " data-effect="effect-scale"
 																	data-id="{{ $service->id }}" data-section_name="{{ $service->title}}"
 																	data-description="{{ $service->desc }}" data-toggle="modal"
 																	href="#exampleModal2" title=" تعديل الخدمة"><i class="typcn typcn-edit"></i>&nbsp;&nbsp;تعديل الخدمة</a>
-																
-																	<a class="dropdown-item modal-effect" data-effect="effect-scale"
-																	data-id="{{ $service->id }}" data-section_name="{{ $service->title }}"
-																	data-toggle="modal" href="#modaldemo9" title="حذف"><i
-																	class="text-danger fas fa-trash-alt"></i>&nbsp;&nbsp;حذف
-																		الخدمة</a>
+																@can('حذف الخدمة')
+																<a class="dropdown-item modal-effect" data-effect="effect-scale"
+																data-id="{{ $service->id }}" data-section_name="{{ $service->title }}"
+																data-toggle="modal" href="#modaldemo9" title="حذف"><i
+																class="text-danger fas fa-trash-alt"></i>&nbsp;&nbsp;حذف
+																	الخدمة</a>
+																@endcan
+																	
 														</div>
 													</div>
 												</td>

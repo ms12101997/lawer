@@ -28,13 +28,7 @@
 						
 							<div class="card-body">
 								<div class="card card-custom">
-                                    <div class="card-header flex-wrap py-3">
-                                        <div class="card-title">
-                                            <h3 class="card-label">
-                                              Discuss
-                                            </h3>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="card-body overflow-auto">
                                         
                                        
@@ -65,16 +59,19 @@
                                                         <td>{{ $discuss->email }}</td> 
                                                         <td>{{ $discuss->subject }}</td>
                                                         <td>
+                                                        @can('عرض الرسالة')
                                                             <a class=" btn btn-sm btn-info"
 
                                                             href="{{route('discuss.show',$discuss->id)}}" title="عرض"><i class="icon ion-md-eye"></i></a>
+                                                        @endcan
                                                     
             
-                                                    
+                                                        @can('حذف الرسالة')
                                                         <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                                             data-id="{{ $discuss->id }}" data-section_name="{{ $discuss->name }}"
                                                             data-toggle="modal" href="#modaldemo9" title="حذف"><i
                                                                 class="las la-trash"></i></a>
+                                                        @endcan
                                                     
                                                         </td>
                             
@@ -94,7 +91,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
-                    <h6 class="modal-title">حذف القسم</h6><button aria-label="Close" class="close" data-dismiss="modal"
+                    <h6 class="modal-title">حذف الرسالة</h6><button aria-label="Close" class="close" data-dismiss="modal"
                         type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <form action="discuss/destroy" method="post">

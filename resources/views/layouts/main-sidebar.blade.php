@@ -24,41 +24,73 @@
 					<li class="slide">
 						<a class="side-menu__item" href="{{ url('/' . $page='home') }}"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24" ><path d="M0 0h24v24H0V0z" fill="none"/><path d="M5 5h4v6H5zm10 8h4v6h-4zM5 17h4v2H5zM15 5h4v2h-4z" opacity=".3"/><path d="M3 13h8V3H3v10zm2-8h4v6H5V5zm8 16h8V11h-8v10zm2-8h4v6h-4v-6zM13 3v6h8V3h-8zm6 4h-4V5h4v2zM3 21h8v-6H3v6zm2-4h4v2H5v-2z"/></svg><span class="side-menu__label">القائمة الرئيسية</span><span class="badge badge-success side-badge">1</span></a>
 					</li>
+					@can('الخدمات')
 					<li class="slide">
 						<a class="side-menu__item" data-toggle="slide"><span class="side-menu__label ">الخدمات</span><i class="angle fe fe-chevron-down"></i></a>
+						@can('قائمة الخدمات  ')
 						<ul class="slide-menu">
-					
+								
 								<li><a class="slide-item" href="{{ url('/' . $page = 'services') }}">قائمة الخدمات</a></li>
+								
+								
 								{{-- <li><a class="slide-item" href="{{ url('/' . ($page = '#')) }}">أرشيف الخدمات</a></li> --}}
 							
 						</ul>
+						@endcan
 					</li>
+					@endcan
+					@can('المناقشة')
 					<li class="slide">
 						<a class="side-menu__item" data-toggle="slide"><span class="side-menu__label ">المناقشة</span><i class="angle fe fe-chevron-down"></i></a>
+						@can(' رسائل الاستفسار')
 						<ul class="slide-menu">
 								<li><a class="slide-item" href="{{ url('/' . ($page = 'discuss')) }}"> رسائل الاستفسار</a></li>	
 						</ul>
+						@endcan
 					</li>
+					@endcan
+					@can('المستخدمين ')
 					<li class="slide">
-						<a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}"><span class="side-menu__label ">المستخدمين</span><i class="angle fe fe-chevron-down"></i></a>
+						<a class="side-menu__item" data-toggle="slide"><span class="side-menu__label ">المستخدمين</span><i class="angle fe fe-chevron-down"></i></a>
 						<ul class="slide-menu">
 					
-								<li><a class="slide-item" href="{{ url('/' . ($page = '#')) }}">قائمة المستخدم</a></li>
-								<li><a class="slide-item" href="{{ url('/' . ($page = '#')) }}"> صلاحيات المستخدم</a></li>
-							
+								@can('قائمة المستخدم')
+								<li><a class="slide-item" href="{{ url('/' . ($page = 'users')) }}">قائمة المستخدم</a></li>
+								@endcan
+								@can('صلاحية المستخدمين')
+								<li><a class="slide-item" href="{{ url('/' . ($page = 'roles')) }}"> صلاحيات المستخدم</a></li>
+								@endcan
 						</ul>
 					</li>
+					@endcan
+						
+					
+					
+					
+					@can('الأعدادت')
 					<li class="slide">
 						<a class="side-menu__item" data-toggle="slide"  }}"><span class="side-menu__label ">الأعدادات</span><i class="angle fe fe-chevron-down"></i></a>
 						<ul class="slide-menu">
-					
+								@can('اضافة سليدر')
 								<li><a class="slide-item" href="{{ url('/' . ($page = 'slider')) }}">إضافة سليدر </a></li>
-								<li><a class="slide-item" href="{{ url('/' . ($page = '#')) }}">تواصل معنا</a></li>
-								<li><a class="slide-item" href="{{ url('/' . ($page = '#')) }}"> لماذا تختار محامينا</a></li>
-								<li><a class="slide-item" href="{{ url('/' . ($page = '#')) }}"> من نحن</a></li>
-								<li><a class="slide-item" href="{{ url('/' . ($page = '#')) }}"> مرحبا بكم</a></li>
+								@endcan
+								@can('تواصل معنا ')
+								<li><a class="slide-item" href="{{ url('/' . ($page = 'contact')) }}">تواصل معنا</a></li>
+								@endcan
+								@can(' لماذا تختار محامينا')
+								<li><a class="slide-item" href="{{ url('/' . ($page = 'lawer')) }}"> لماذا تختار محامينا</a></li>
+								@endcan
+								@can('من نحن ')
+								<li><a class="slide-item" href="{{ url('/' . ($page = 'who')) }}"> من نحن</a></li>
+								@endcan
+								@can('مرحبا بكم')
+								<li><a class="slide-item" href="{{ url('/' . ($page = 'welcome')) }}"> مرحبا بكم</a></li>	
+								@endcan
+								
 						</ul>
 					</li>
+					@endcan
+					
 				</ul>
 			</div>
 		</aside>

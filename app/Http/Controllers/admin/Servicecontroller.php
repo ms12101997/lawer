@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
+
+    function __construct()
+{
+
+$this->middleware('permission:عرض الخدمة', ['only' => ['show']]);
+$this->middleware('permission:إضافة خدمة', ['only' => ['create','store']]);
+$this->middleware('permission:حذف الخدمة', ['only' => ['destroy']]);
+
+}
     /**
      * Display a listing of the resource.
      *
@@ -114,29 +123,26 @@ class ServiceController extends Controller
         $iconname = $service->icon;
         if ($request->hasFile('img')) {
             if ($imgname !== null) {
-                unlink(public_path('uploads/img/' . $imgname));
+                $service->clearMediaCollection('');
             }
             $img = $request->file('img');
-            $ext = $img->getClientOriginalExtension();
-            $imgname = uniqid() . ".$ext";
-            $img->move(public_path('uploads/img'), $imgname);
+            $service->addMedia($img)->toMediaCollection();
         }
         if ($request->hasFile('icon')) {
             if ($iconname !== null) {
-                unlink(public_path('uploads/icon/' . $iconname));
+                $service->clearMediaCollection('service');
             }
             $icon = $request->file('icon');
-            $ext = $img->getClientOriginalExtension();
-            $iconname = uniqid() . ".$ext";
-            $icon->move(public_path('uploads/icon'), $iconname);
+            $service->addMedia($img)->toMediaCollection('service');
+          
         }
 
 
         $service->update([
             'title' => $request->title,
             'desc' => $request->desc,
-            'img' => $imgname,
-            'icon' => $iconname,
+            'img' => $img,
+            'icon' => $icon,
         ]);
         session()->flash('edit','تم تحديث الخدمة بنجاح');
         return redirect(route('services.index'));
