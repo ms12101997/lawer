@@ -23,16 +23,28 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Auth::routes();
+
 Route::get('/', function () {
     return view('auth.login');
 });
+
+Route::prefix('admin')->group(function () {
+
+    Auth::routes();
+
+});
+
+
+
+
+Route::middleware(['auth'])->prefix('admin')->group( function () {
+
 Route::get('/index', [AdminController::class, 'index'])->name('adminpage');;
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     
-    Route::resource('services', ServiceController::class);
+Route::resource('services', ServiceController::class);
 Route::resource('discuss', DiscussController::class);
 Route::resource('slider', SliderController::class);
 Route::resource('contact', ContactController::class);
@@ -41,7 +53,6 @@ Route::resource('welcome', welcomeController::class);
 Route::resource('who', WhoController::class);
 
 
-Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
 });
