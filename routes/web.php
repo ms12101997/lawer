@@ -36,24 +36,28 @@ Route::prefix('admin')->group(function () {
 
 
 
-
 Route::middleware(['auth'])->prefix('admin')->group( function () {
 
-Route::get('/index', [AdminController::class, 'index'])->name('adminpage');;
+    Route::get('/index', [AdminController::class, 'index'])->name('adminpage');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    
-Route::resource('services', ServiceController::class);
-Route::resource('discuss', DiscussController::class);
-Route::resource('slider', SliderController::class);
-Route::resource('contact', ContactController::class);
-Route::resource('lawer', lawerController::class);
-Route::resource('welcome', welcomeController::class);
-Route::resource('who', WhoController::class);
+        
+    Route::resource('services', ServiceController::class);
+    Route::resource('discuss', DiscussController::class);
+    Route::resource('slider', SliderController::class);
+    Route::resource('contact', ContactController::class);
+    Route::resource('lawer', lawerController::class);
+    Route::resource('welcome', welcomeController::class);
+    Route::resource('who', WhoController::class);
 
 
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
 });
+
+
+
+
+
 
