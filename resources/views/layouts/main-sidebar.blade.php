@@ -33,7 +33,8 @@
 								<li><a class="slide-item" href="{{ url('/admin/' . $page = 'services') }}">قائمة الخدمات</a></li>
 								
 								
-								{{-- <li><a class="slide-item" href="{{ url('/admin/' . ($page = '#')) }}">أرشيف الخدمات</a></li> --}}
+								{{-- <li><a class="modal-effect slide-item" data-effect="effect-scale"
+										data-toggle="modal" href="#modaldemo8"> اضافة خدمة جديدة</a></li> --}}
 							
 						</ul>
 						@endcan
@@ -86,6 +87,7 @@
 								@can('مرحبا بكم')
 								<li><a class="slide-item" href="{{ url('/admin/' . ($page = 'welcome')) }}"> مرحبا بكم</a></li>	
 								@endcan
+								<li><a class="slide-item" href="{{ url('/admin/' . ($page = 'social')) }}"> روابط السوشيال </a></li>
 								
 						</ul>
 					</li>

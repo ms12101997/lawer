@@ -4,9 +4,9 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Welcome;
+use App\Models\Social;
 
-class Welcomecontroller extends Controller
+class SocialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,8 @@ class Welcomecontroller extends Controller
      */
     public function index()
     {
-        $welcomes = Welcome::get();
-        //  $avatar = $welcomes->getmedia('welcome');
-        return view('admin.welcome.welcome',compact('welcomes'));
+        $socials=Social::all();
+        return view('admin.social.social',compact('socials'));
     }
 
     /**
@@ -38,26 +37,7 @@ class Welcomecontroller extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:100',
-            'desc' => 'required|string',
-            'img' => 'required|image|mimes:jpg,png',
-            
-        ]);
-        $title = $request->title;
-        $desc = $request->desc;
-        $img = $request->file('img');
-
-        $welcome = welcome::create([
-            'title' => $title,
-            'desc' => $desc,
-            
-            
-        ]);
-        $welcome->addMedia($img)->toMediaCollection('welcome');
-        
-        session()->flash('edit','تم التعديل  بنجاح');
-        return redirect(route('welcome.index'));
+        //
     }
 
     /**
@@ -91,31 +71,40 @@ class Welcomecontroller extends Controller
      */
     public function update(Request $request, $id)
     {
+      
         $request->validate([
-            'title' => 'required|string|max:100',
-            'desc' => 'required|string',
-            'img' => 'required|image|mimes:jpg,png',
+            'facebook' => 'required|max:100',
+            'twitter' => 'required',
+            'snapchat' => 'required',
+            'linkedin' => 'required',
+            'whatsapp' => 'required',
+            
         ]);
-            
-            $welcome = welcome::findorfail($id);
-            $img = $request->file('img');
         
+        $social=Social::findorfail($id);
+        $img = $request->file('img');
+
         if ($request->hasFile('img')) {
-            
-                $welcome->clearMediaCollection('welcome');
-                $welcome->addMedia($img)->toMediaCollection('welcome');
+            $social->clearMediaCollection('logo');
+            $social->addMedia($img)->toMediaCollection('logo');
             }
-            $title = $request->title;
-            $desc = $request->desc;
-            
-        $welcome->update([
-            'title' => $title,
-            'desc' => $desc,
+
+            $facebook = $request->facebook;
+            $twitter = $request->twitter;
+            $snapchat = $request->snapchat;
+            $linkedin = $request->linkedin;
+            $whatsapp = $request->whatsapp;
+            $social->update([
+                'facebook' => $facebook,
+                'twitter' => $twitter,
+                'snapchat' => $snapchat,
+                'linkedin' => $linkedin,
+                'whatsapp' => $whatsapp,
         ]);
         
         
         session()->flash('edit','تم التعديل  بنجاح');
-        return redirect(route('welcome.index'));
+        return redirect(route('social.index'));
     }
 
     /**

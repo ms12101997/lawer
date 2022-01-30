@@ -82,6 +82,7 @@
 											@php
 											$i = 0;
 											@endphp
+											@if(!empty($services))
 											@foreach($services as $service)
 											@php
 											$i++
@@ -120,7 +121,7 @@
 												
 											</tr>
 											@endforeach
-											
+											@endif
 								
 										</tbody>
 									</table>
@@ -210,7 +211,7 @@
 							</div>
 							<div class="modal-body">
 				
-								<form action="{{route('services.update',$service->id)}}" method="post" autocomplete="off" enctype="multipart/form-data"> 
+								<form action="{{route('services.update',$service->id ?? '')}}" method="post" autocomplete="off" enctype="multipart/form-data"> 
 									@method('PUT')
 									@csrf
 									

@@ -11,13 +11,12 @@ class ServiceController extends Controller
 {
 
     function __construct()
-{
+    {
 
-$this->middleware('permission:عرض الخدمة', ['only' => ['show']]);
-$this->middleware('permission:إضافة خدمة', ['only' => ['create','store']]);
-$this->middleware('permission:حذف الخدمة', ['only' => ['destroy']]);
-
-}
+        $this->middleware('permission:عرض الخدمة', ['only' => ['show']]);
+        $this->middleware('permission:إضافة خدمة', ['only' => ['create', 'store']]);
+        $this->middleware('permission:حذف الخدمة', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,8 +25,8 @@ $this->middleware('permission:حذف الخدمة', ['only' => ['destroy']]);
     public function index()
     {
 
-        $services = Service::orderBy('id','Desc')->get();
-        return view('admin.services.service',compact('services'));
+        $services = Service::orderBy('id', 'Desc')->get();
+        return view('admin.services.service', compact('services'));
     }
 
     /**
@@ -72,7 +71,7 @@ $this->middleware('permission:حذف الخدمة', ['only' => ['destroy']]);
         ]);
         $service->addMedia($img)->toMediaCollection();
         $service->addMedia($icon)->toMediaCollection('service');
-        session()->flash('Add','تم إضافة الخدمة بنجاح');
+        session()->flash('Add', 'تم إضافة الخدمة بنجاح');
         return redirect(route('services.index'));
     }
 
@@ -85,8 +84,8 @@ $this->middleware('permission:حذف الخدمة', ['only' => ['destroy']]);
     public function show($id)
     {
         $service = Service::findorfail($id);
-        $avatars=$service->getmedia('service');
-        return view('admin.services.show', compact('service','avatars'));
+        $avatars = $service->getmedia('service');
+        return view('admin.services.show', compact('service', 'avatars'));
     }
 
     /**
@@ -110,14 +109,14 @@ $this->middleware('permission:حذف الخدمة', ['only' => ['destroy']]);
      */
     public function update(Request $request)
     {
-        
+
         $request->validate([
             'title' => 'required|string|max:100',
             'desc' => 'required|string',
             'img' => 'nullable|image',
             'icon' => 'nullable|image',
         ]);
-        $id=$request->id;
+        $id = $request->id;
         $service = service::findOrFail($id);
         $imgname = $service->img;
         $iconname = $service->icon;
@@ -134,7 +133,6 @@ $this->middleware('permission:حذف الخدمة', ['only' => ['destroy']]);
             }
             $icon = $request->file('icon');
             $service->addMedia($img)->toMediaCollection('service');
-          
         }
 
 
@@ -144,7 +142,7 @@ $this->middleware('permission:حذف الخدمة', ['only' => ['destroy']]);
             'img' => $img,
             'icon' => $icon,
         ]);
-        session()->flash('edit','تم تحديث الخدمة بنجاح');
+        session()->flash('edit', 'تم تحديث الخدمة بنجاح');
         return redirect(route('services.index'));
     }
 
@@ -156,11 +154,11 @@ $this->middleware('permission:حذف الخدمة', ['only' => ['destroy']]);
      */
     public function destroy(Request $request)
     {
-        
+
         $id = $request->id;
-        $service=service::findorfail($id)->delete();
+        $service = service::findorfail($id)->delete();
         // $service->clearMediaCollectionExcept( 'service',$service->getFirstMedia());
-        session()->flash('delete','تم حذف الخدمة بنجاح');
-        return redirect('/services');
+        session()->flash('delete', 'تم حذف الخدمة بنجاح');
+        return back();
     }
 }
